@@ -1,18 +1,20 @@
 
-```sql
+
 
 # Mld textuel
-
+```sql
 Client = (N_Client INT, NomClient VARCHAR(50), PrenomClient VARCHAR(50));
 Commande = (N_Commande INT, MontantCommande CURRENCY, DateCommande DATETIME, #N_Client);
 Article = (N_Article INT, DesignationArticle VARCHAR(50), PUarticle VARCHAR(50));
 SeComposeDe = (#N_Commande, #N_Article, Qte INT, TauxTVA DECIMAL(15,2));
 
 
+```
 
 
 # Script Sql
 
+```sql
 CREATE TABLE Client(
    N_Client INT,
    NomClient VARCHAR(50),
