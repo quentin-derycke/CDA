@@ -1,0 +1,24 @@
+drop DATABASE sql_exo1;
+create DATABASE sql_exo1;
+use sql_exo1; 
+
+CREATE table personne (
+
+    per_num int AUTO_INCREMENT PRIMARY KEY,
+    per_nom varchar(30),
+    per_prenom varchar(30),
+    per_ville varchar (30)
+    );
+    
+     
+    CREATE table groupe (
+    
+    gro_num int AUTO_INCREMENT,
+    gro_libelle int,
+    PRIMARY KEY (gro_num));
+                         
+  CREATE table appartient (
+  
+  	gro_num int REFERENCES groupe(gro_num),
+    	per_num int references personne (per_num));
+        

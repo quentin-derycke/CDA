@@ -1,5 +1,5 @@
 
-
+```sql
 
 # Mld textuel
 
@@ -45,3 +45,5 @@ CREATE TABLE SeComposeDe(
    FOREIGN KEY(N_Commande) REFERENCES Commande(N_Commande),
    FOREIGN KEY(N_Article) REFERENCES Article(N_Article)
 );
+
+```
