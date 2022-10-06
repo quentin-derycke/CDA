@@ -63,22 +63,52 @@ HAVING SUM(qtecde) < 1000 AND total > 10000;
 10. Lister les commandes par nom fournisseur (Afficher le nom du fournisseur, le numéro de commande et la date) 
 
 ```sql
-select  nomfou, numcom, datcom from entcom join fournis on entcom.numfou = fournis.numcom group by  nomfou
+SELECT
+    nomfou,
+    numcom,
+    datcom
+FROM
+    entcom
+JOIN fournis ON fournis.numfou = entcom.numfou
+GROUP BY
+    numcom
 ```
 
 11. Sortir les produits des commandes ayant le mot "urgent' en observation? (Afficher le numéro de commande, le nom du fournisseur, le libellé du produit et le sous total = quantité commandée * Prix unitaire)
 
 ```sql
-select  nomcom, nomfou, libart, sum(qtecde * priuni) as `sous_total` from entcom join fournis on fournis.numfou = entcom.numfou join ligcom on entcom.numcom = ligcom.numcom join  produit on ligcom.codart = produit.codart  where obscom like '%urgent%'
+SELECT
+    nomfou,
+    entcom.numcom,
+    datcom
+FROM
+    entcom
+JOIN fournis ON fournis.numfou = entcom.numfou
+JOIN ligcom ON entcom.numcom = ligcom.numcom
+JOIN produit ON ligcom.codart = produit.codart
+WHERE
+    obscom LIKE '%urgent%'
+GROUP BY
+    numcom
+
 ```
 12. Coder de 2 manières différentes la requête suivante : Lister le nom des fournisseurs susceptibles de livrer au moins un article
+
+select nomfou, qteliv from produit where 
+
+
 13. Coder de 2 manières différentes la requête suivante Lister les commandes (Numéro et date) dont le fournisseur est celui de la commande 70210 :
 
 14. Dans les articles susceptibles d’être vendus, lister les articles moins chers (basés sur Prix1) que le moins cher des rubans (article dont le premier caractère commence par R). On affichera le libellé de l’article et prix1
+
 15. Editer la liste des fournisseurs susceptibles de livrer les produits  dont le stock est inférieur ou égal à 150 % du stock d'alerte. La liste est triée par produit puis fournisseur
+
 16. Éditer la liste des fournisseurs susceptibles de livrer les produit dont  le stock est inférieur ou égal à 150 % du stock d'alerte et un délai de  livraison d'au plus 30 jours. La liste est triée par fournisseur puis produit
+
 17. Avec le même type de sélection que ci-dessus, sortir un total des stocks par fournisseur trié par total décroissant
+
 18. En fin d'année, sortir la liste des produits dont la quantité réellement commandée dépasse 90% de la quantité annuelle prévue.
+
 19. Calculer le chiffre d'affaire par fournisseur pour l'année 93 sachant que les prix indiqués sont hors taxes et que le taux de TVA est 20%.
 
 20. Existe-t-il des lignes de commande non cohérentes avec les produits vendus par les fournisseurs. ?
