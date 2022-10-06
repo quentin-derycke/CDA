@@ -94,12 +94,27 @@ GROUP BY
 ```
 12. Coder de 2 manières différentes la requête suivante : Lister le nom des fournisseurs susceptibles de livrer au moins un article
 
-select nomfou, qteliv from produit where 
+```sql
 
+select nomfou from fournis join entcom on fournis.numfou = entcom.numfou   join ligcom on  entcom.numcom = ligcom.numcom where  qteliv >= 1 GROUP BY nomfou; 
 
+select nomfou from fournis where numfou in (
+select numfou from entcom where numcom in (
+    select numcom from ligcom where qteliv >= 1
+))
+;
+```
 13. Coder de 2 manières différentes la requête suivante Lister les commandes (Numéro et date) dont le fournisseur est celui de la commande 70210 :
 
+```sql
+select   nomfou,numcom, datcom from entcom join fournis on fournis.numfou = entcom.numfou where numcom = '70210';
+select  numcom from entcom where numcom = '70210';
+
+```
+
 14. Dans les articles susceptibles d’être vendus, lister les articles moins chers (basés sur Prix1) que le moins cher des rubans (article dont le premier caractère commence par R). On affichera le libellé de l’article et prix1
+
+
 
 15. Editer la liste des fournisseurs susceptibles de livrer les produits  dont le stock est inférieur ou égal à 150 % du stock d'alerte. La liste est triée par produit puis fournisseur
 
