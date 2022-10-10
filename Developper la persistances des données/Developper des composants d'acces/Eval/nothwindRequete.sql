@@ -74,29 +74,65 @@ DESC
 Liquids » : */ 
 
 SELECT
-   ShipCountry as Pays
+    customers.Country AS Pays
 FROM
-    orders
-
-JOIN `order details` on `order details`.OrderId = orders.OrderID
-JOIN products on `order details`.ProductID = products.ProductID
-JOIN suppliers on products.SupplierID = suppliers.SupplierID
+    customers
+JOIN orders ON customers.CustomerId = orders.CustomerId
+JOIN `order details` AS od ON orders.OrderID = od.OrderID
+JOIN products ON products.ProductId = od.ProductId
+JOIN suppliers ON suppliers.SupplierId = products.SupplierId
 WHERE
-    CompanyName LIKE "Exotic Liquids";
-
-
-  SELECT
-    ProductName AS Produit,
-    UnitPrice AS Prix
-FROM
-    products
-JOIN suppliers ON products.SupplierID = suppliers.SupplierID
-WHERE
-    CompanyName LIKE "Exotic Liquids";
-
-
-/*  Pas terminé */
+    suppliers.CompanyName = "Exotic Liquids"
+GROUP BY
+    customers.Country
+ORDER BY
+    customers.Country ASC;
 
 
 /* 7 – Montant des ventes 1997 */
+SELECT
+    SUM(unitprice * quantity) AS "Montant de vente de '1997' """
+FROM
+    `order details` AS od
+JOIN orders ON od.OrderID = orders.OrderID
+WHERE
+    YEAR(orderdate) = "1997";
 
+
+
+
+
+/*8 – Montant des ventes de 1997 mois par mois :*/
+SELECT
+    MONTH(orderdate) AS "Mois 97",
+    SUM(unitprice * quantity) AS "Montant de vente "
+FROM
+    `order details` AS od
+JOIN orders ON od.OrderID = orders.OrderID
+WHERE
+    YEAR(orderdate) = "1997"
+GROUP BY
+    MONTH(orderdate);
+
+/* 9 – Depuis quelle date le client « Du monde entier » n’a plus commandé ?*/
+
+SELECT
+    MAX(OrderDate) AS 'Date de dernière commande'
+FROM
+    orders
+JOIN customers ON orders.CustomerID = customers.CustomerID
+WHERE
+    CompanyName LIKE 'Du monde entier';
+
+
+
+
+/*10 – Quel est le délai moyen de livraison en jours ?*/
+SELECT
+    ROUND(
+        AVG(
+            DATEDIFF(ShippedDate, orderdate)
+        )
+    ) AS "Délai moyen de livraison en jours"
+FROM
+    orders;
