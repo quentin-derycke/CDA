@@ -104,8 +104,8 @@ WHERE
 
 /*8 – Montant des ventes de 1997 mois par mois :*/
 SELECT
-    MONTH(orderdate) AS "Mois 97",
-    SUM(unitprice * quantity) AS "Montant de vente "
+    MONTH(orderdate) AS Mois 97,
+    SUM(unitprice * quantity) AS Montant de ventes
 FROM
     `order details` AS od
 JOIN orders ON od.OrderID = orders.OrderID
@@ -117,7 +117,7 @@ GROUP BY
 /* 9 – Depuis quelle date le client « Du monde entier » n’a plus commandé ?*/
 
 SELECT
-    MAX(OrderDate) AS 'Date de dernière commande'
+    MAX(OrderDate) AS Date de dernière commande
 FROM
     orders
 JOIN customers ON orders.CustomerID = customers.CustomerID
@@ -133,6 +133,6 @@ SELECT
         AVG(
             DATEDIFF(ShippedDate, orderdate)
         )
-    ) AS "Délai moyen de livraison en jours"
+    ) AS Délai moyen de livraison en jours
 FROM
     orders;
