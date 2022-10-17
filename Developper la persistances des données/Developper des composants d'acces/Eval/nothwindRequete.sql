@@ -1,3 +1,4 @@
+-- Active: 1664289946008@@127.0.0.1@3306@northwind
 
 /* 1 - Liste des contacts français : */
 SELECT
@@ -36,6 +37,7 @@ DESC
     ;
 
     /* 4 - Liste des clients Français ayant plus de 10 commandes */
+
 SELECT
     CompanyName,
     COUNT(OrderID) AS NbresProduits

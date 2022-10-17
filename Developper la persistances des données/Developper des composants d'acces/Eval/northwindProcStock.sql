@@ -20,7 +20,7 @@ CAll `DateDerCom`;
 /*10 – Quel est le délai moyen de livraison en jours ?*/
 
 DELIMITER |
-Create procedure Delivjrs()
+Create procedure orders.Delivjrs()
 BEGIN
 SELECT
     ROUND(
@@ -34,4 +34,6 @@ END |
 Delimiter ;
 
 
-Call orders.Delivjrs;
+Call Delivjrs;
+
+/* fonctionne sur PHP my Admin  */ 
