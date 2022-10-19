@@ -73,7 +73,6 @@ Codification | Type | Contraintes | Règles
  user_id | INT | REFERENCES user(user_id)
  address_billing_id INT|  REFERENCES address(address_id)
  address_delivery_id INT|  REFERENCES address(address_id)
- user_id | INT | REFERENCES user(user_id)
  order_date | DATETIME
  order_validated | BOOLEAN
  order_shipped | BOOLEAN
@@ -162,23 +161,23 @@ CREATE TABLE user(
    user_birthname DATETIME,
    user_signindate DATETIME,
    user_phone_number VARCHAR(30),
-   user_is_verified LOGICAL,
-   user_roles Logntext ,
+   user_is_verified BOOLEAN,
+   user_roles LONGTEXT,
    user_vat DECIMAL(4,2),
-   user_pro LOGICAL,
+   user_pro BOOLEAN,
    user_pro_company_name VARCHAR(50),
    user_pro_duns VARCHAR(50),
    PRIMARY KEY(user_id)
 );
 
 CREATE TABLE supplier(
-   supplier_id INT,
+   supplier_id INT AUTO_INCREMENT,
    supplier_name VARCHAR(50),
    PRIMARY KEY(supplier_id)
 );
 
 CREATE TABLE category(
-   category_id INT,
+   category_id INT AUTO_INCREMENT,
    category_name VARCHAR(50),
    category_parent_id INT,
    PRIMARY KEY(category_id),
@@ -186,17 +185,16 @@ CREATE TABLE category(
 );
 
 CREATE TABLE address(
-   address_id COUNTER,
-   address_name VARCHAR(50),
+   address_id INT AUTO_INCREMENT,
+   address_street VARCHAR(50),
    address_country VARCHAR(50),
    address_zipcode VARCHAR(50),
    address_city VARCHAR(50),
-   address_adress VARCHAR(50),
    PRIMARY KEY(address_id)
 );
 
 CREATE TABLE product(
-   product_id INT,
+   product_id INT AUTO_INCREMENT,
    product_name VARCHAR(50),
    product_description VARCHAR(150),
    product_reference VARCHAR(50),
@@ -215,13 +213,13 @@ CREATE TABLE product(
    FOREIGN KEY(supplier_id) REFERENCES supplier(supplier_id)
 );
 
-CREATE TABLE _order(
-   order_id INT,
+CREATE TABLE order(
+   order_id INT AUTO_INCREMENT,
    order_date DATETIME,
-   order_shipped LOGICAL,
+   order_shipped BOOLEAN,
    order_billing_date DATETIME,
    order_payment_method VARCHAR(50),
-   order_pay LOGICAL,
+   order_pay BOOLEAN,
    address_delivery_id INT NOT NULL,
    address_billing_id INT NOT NULL,
    user_id INT NOT NULL,
@@ -239,7 +237,7 @@ CREATE TABLE order_details(
    order_id INT NOT NULL,
    product_id INT NOT NULL,
    PRIMARY KEY(order_details_id),
-   FOREIGN KEY(order_id) REFERENCES _order(order_id),
+   FOREIGN KEY(order_id) REFERENCES order(order_id),
    FOREIGN KEY(product_id) REFERENCES product(product_id)
 );
 
@@ -250,7 +248,7 @@ CREATE TABLE order_delivery(
    order_delivery_bill DATETIME,
    order_id INT NOT NULL,
    PRIMARY KEY(order_delivery_id),
-   FOREIGN KEY(order_id) REFERENCES _order(order_id)
+   FOREIGN KEY(order_id) REFERENCES order(order_id)
 );
 
 CREATE TABLE cart(
@@ -261,14 +259,14 @@ CREATE TABLE cart(
    PRIMARY KEY(cart_id),
    UNIQUE(user_id),
    FOREIGN KEY(product_id) REFERENCES product(product_id),
-   FOREIGN KEY(user_id) REFERENCES _user(user_id)
+   FOREIGN KEY(user_id) REFERENCES user(user_id)
 );
 
 CREATE TABLE live_in(
    user_id INT,
    address_id INT,
    PRIMARY KEY(user_id, address_id),
-   FOREIGN KEY(user_id) REFERENCES _user(user_id),
+   FOREIGN KEY(user_id) REFERENCES user(user_id),
    FOREIGN KEY(address_id) REFERENCES address(address_id)
 );
 
