@@ -44,7 +44,7 @@ function generateUser() {
         lastname: faker_1.faker.name.lastName(),
         birthdate: faker_1.faker.date.birthdate(),
         signupdate: faker_1.faker.date.past(),
-        phonenumber: faker_1.faker.phone.number('+33 06 ### ## ##'),
+        phonenumber: faker_1.faker.phone.number('+33 ## ### ## ##'),
         isverified: boolRandom(),
         roles: numberRandom(6),
         vat: 20,
@@ -64,7 +64,7 @@ function generateUsers(nbreUser) {
     return users;
 }
 function convertDate(dateBuff) {
-    return `${dateBuff.getFullYear()}-${dateBuff.getMonth()}-${dateBuff.getDay()}`;
+    return `${dateBuff.getFullYear()}-${(dateBuff.getMonth() == 0) ? 1 : dateBuff.getMonth()}-${(dateBuff.getDay() == 0) ? 1 : dateBuff.getDay()}`;
 }
 function generateUsersInsert(tableName, columnsName, users) {
     let column = '';
@@ -101,7 +101,7 @@ function start() {
     });
     readline.question(' chose a number?', (num) => {
         const users = generateUsers(Number(num));
-        const sql = generateUsersInsert('_user', ['user_email', 'user_password', 'user_name', 'user_lastname', 'user_birthdate', 'user_signupdate', 'user_phonenumber', 'user_isverified', 'user_roles', 'user_vat', 'user_pro', 'user_pro_company_name', 'user_pro_duns'], users);
+        const sql = generateUsersInsert('_user', ['user_email', 'user_password', 'user_name', 'user_lastname', 'user_birthdate', 'user_signindate', 'user_phone_number', 'user_is_verified', 'user_roles', 'user_vat', 'user_pro', 'user_pro_company_name', 'user_pro_duns'], users);
         fs.writeFile("insertUsers.sql", sql, (err) => {
             if (err)
                 console.log(err);
