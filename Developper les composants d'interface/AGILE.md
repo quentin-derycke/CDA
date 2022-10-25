@@ -1,10 +1,6 @@
 # S'approprier une demarche de développement agile : 
 
 
-
-
-
-
  ## Répondez aux questions suivantes :
 
    *  Donnez une définition de l'agilité
