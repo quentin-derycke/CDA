@@ -3,9 +3,9 @@
  # Cas Mediathéque : 
 
 
-## Scénarios Cas d’usages  
+## Scénarios Cas d’utilisations
 
-# Emprunte
+# Traitement d'un  Emprunt
 
  1 - cas livre :  
 => le personnel demande la création d’un nouvel emprunt de livre ou journal
@@ -45,3 +45,5 @@
 ![Activity Diagram, Emprunts](/EmpruntActivity(1).png)
 ## Cycle de vie 
 ![Activity Diagram, Cycle de vie Document](/CycledeVieDoc.png)
+## Class Diagram 
+![Class Diagram, cas mediatheque](/Class%20Diagram%20Mediatheque.drawio.png)
